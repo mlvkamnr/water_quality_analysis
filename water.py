@@ -101,7 +101,7 @@ st.markdown(
     """
     <hr style="border:1px solid #ddd;">
     <div style="text-align: center; color: #aaa; font-size: 12px;">
-        © 2025 Water Quality Analysis App. Made by Aayat Aashir Jaineel Yair using Streamlit.
+        © 2025 Water Quality Analysis App. Made by Aayat Aashir Jaineel Yasir using Streamlit.
     </div>
     """, unsafe_allow_html=True
 )
