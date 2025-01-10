@@ -1,16 +1,17 @@
 import streamlit as st
 import pandas as pd
 
+
 # Load the dataset
 @st.cache_data
 def load_data():
-    file_path = "water_quality_dataset.csv"  # Ensure the file path is correct
-    data = pd.read_csv(file_path)  # Using the file_path variable
+    file_path = "water_quality_dataset.csv"
+    data = pd.read_csv("water_potability.csv")
     data = data.dropna()
     return data
 
-def analyze_water_quality(ph, turbidity, tds, temperature):
-    """Analyze water quality based on input parameters."""
+def analyze_water_quality(ph, turbidity, tds,temperature,dataset):
+    """Analyze water quality based on input parameters and dataset"""
     conditions = []
 
     # Check pH levels
@@ -32,7 +33,7 @@ def analyze_water_quality(ph, turbidity, tds, temperature):
         conditions.append("TDS is outside the healthy range.")
         
     # Check Temperature
-    if 10 <= temperature <= 22:
+    if 10 <= Temperature <= 22:
         conditions.append("Temperature is within the healthy range.")
     else:
         conditions.append("Temperature is outside the healthy range.")
@@ -45,7 +46,7 @@ def analyze_water_quality(ph, turbidity, tds, temperature):
 
     return conditions, overall_status
 
-# Streamlit App Configuration
+# Streamlit App
 st.set_page_config(page_title="Water Quality Analysis", page_icon="💧", layout="wide")
 
 # Header
@@ -81,12 +82,12 @@ st.sidebar.header("Input Parameters")
 ph = st.sidebar.number_input("Enter pH value:", min_value=0.0, max_value=14.0, step=0.1, value=7.0)
 turbidity = st.sidebar.number_input("Enter Turbidity (NTU):", min_value=0.0, step=0.1, value=1.0)
 tds = st.sidebar.number_input("Enter TDS (mg/L):", min_value=0.0, step=1.0, value=100.0)
-temperature = st.sidebar.number_input("Enter Temperature (degree Celsius):", min_value=0.0, step=1.0, value=20.0)
+temperature = st.sidebar.number_input("Enter Temperature (degree Celsius):", min_value=0.0, step=1.0, value=100.0)
 
 # Analyze Water Quality
 if st.sidebar.button("Analyze Water Quality"):
     if ph > 0 and turbidity > 0 and tds > 0 and temperature > 0:
-        conditions, overall_status = analyze_water_quality(ph, turbidity, tds, temperature)
+        conditions, overall_status = analyze_water_quality(ph, turbidity, tds, temperature ,dataset)
 
         st.subheader("📊 Analysis Report")
         for condition in conditions:
@@ -100,8 +101,7 @@ if st.sidebar.button("Analyze Water Quality"):
             </div>
             """, unsafe_allow_html=True
         )
-    else:
-        st.error("All input parameters must be greater than zero.")
+
 
 # Footer
 st.markdown(
