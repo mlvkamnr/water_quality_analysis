@@ -81,7 +81,7 @@ tds = st.sidebar.number_input("Enter TDS (mg/L):", min_value=0.0, step=1.0, valu
 
 # Analyze Water Quality
 if st.sidebar.button("Analyze Water Quality"):
-    if ph > 0 and turbidity > 0 and tds > 0 and temperature > 0:
+    if ph > 0 and turbidity > 0 and tds > 0:
         conditions, overall_status = analyze_water_quality(ph, turbidity, tds,dataset)
 
         st.subheader("📊 Analysis Report")
