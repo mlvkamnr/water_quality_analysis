@@ -10,7 +10,7 @@ def load_data():
     data = data.dropna()
     return data
 
-def analyze_water_quality(ph, turbidity, tds,temperature,dataset):
+def analyze_water_quality(ph, turbidity, tds,dataset):
     """Analyze water quality based on input parameters and dataset"""
     conditions = []
 
@@ -31,12 +31,7 @@ def analyze_water_quality(ph, turbidity, tds,temperature,dataset):
         conditions.append("TDS is within the healthy range.")
     else:
         conditions.append("TDS is outside the healthy range.")
-        
-    # Check Temperature
-    if 10 <= Temperature <= 22:
-        conditions.append("Temperature is within the healthy range.")
-    else:
-        conditions.append("Temperature is outside the healthy range.")
+
 
     # Determine overall water quality
     if all("within the healthy range" in condition for condition in conditions):
@@ -82,12 +77,12 @@ st.sidebar.header("Input Parameters")
 ph = st.sidebar.number_input("Enter pH value:", min_value=0.0, max_value=14.0, step=0.1, value=7.0)
 turbidity = st.sidebar.number_input("Enter Turbidity (NTU):", min_value=0.0, step=0.1, value=1.0)
 tds = st.sidebar.number_input("Enter TDS (mg/L):", min_value=0.0, step=1.0, value=100.0)
-temperature = st.sidebar.number_input("Enter Temperature (degree Celsius):", min_value=0.0, step=1.0, value=100.0)
+
 
 # Analyze Water Quality
 if st.sidebar.button("Analyze Water Quality"):
     if ph > 0 and turbidity > 0 and tds > 0 and temperature > 0:
-        conditions, overall_status = analyze_water_quality(ph, turbidity, tds, temperature ,dataset)
+        conditions, overall_status = analyze_water_quality(ph, turbidity, tds,dataset)
 
         st.subheader("📊 Analysis Report")
         for condition in conditions:
