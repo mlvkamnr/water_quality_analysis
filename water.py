@@ -33,7 +33,7 @@ def analyze_water_quality(ph, turbidity, tds,temperature,dataset):
         conditions.append("TDS is outside the healthy range.")
         
     # Check Temperature
-    if 10 degree Celsius <= Temperatue <= 22 degree Celsius:
+    if if 10 <= Temperature <= 22:
         conditions.append("Temperature is within the healthy range.")
     else:
         conditions.append("Temperature is outside the healthy range.")
